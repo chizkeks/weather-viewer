@@ -6,4 +6,5 @@ import ru.petprojects.chizkeks.weather_viewer.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    public User findByLogin(String login);
 }

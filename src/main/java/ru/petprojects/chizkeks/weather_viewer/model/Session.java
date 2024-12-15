@@ -1,15 +1,11 @@
 package ru.petprojects.chizkeks.weather_viewer.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -23,6 +19,7 @@ import java.time.LocalDateTime;
 @Table(name = "sessions")
 public class Session implements BaseEntity<String> {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     String id;
 
     @ManyToOne

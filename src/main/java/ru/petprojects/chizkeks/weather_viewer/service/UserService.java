@@ -17,6 +17,10 @@ public class UserService {
     private final UserMapper userMapper;
 
     public UserDto createUser(UserDto userDto) {
-        return userMapper.userToUserDto(userRepository.saveAndFlush(userMapper.userDtoToUser(userDto)));
+        return userMapper.userToUserDto(userRepository.save(userMapper.userDtoToUser(userDto)));
+    }
+
+    public UserDto findUserByLogin(String login) {
+        return userMapper.userToUserDto(userRepository.findByLogin(login));
     }
 }
