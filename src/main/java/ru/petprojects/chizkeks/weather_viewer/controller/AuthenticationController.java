@@ -16,8 +16,6 @@ import ru.petprojects.chizkeks.weather_viewer.service.SessionService;
 import ru.petprojects.chizkeks.weather_viewer.service.UserService;
 import ru.petprojects.chizkeks.weather_viewer.utils.HashUtils;
 
-import java.util.Arrays;
-
 @Controller
 @RequestMapping
 @RequiredArgsConstructor
