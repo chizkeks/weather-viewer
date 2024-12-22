@@ -7,7 +7,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import ru.petprojects.chizkeks.weather_viewer.model.Session;
 import ru.petprojects.chizkeks.weather_viewer.service.SessionService;
 
@@ -22,7 +21,6 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("Сюда зашли");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
         Cookie[] cookies = request.getCookies();
@@ -35,18 +33,22 @@ public class AuthenticationFilter implements Filter {
             }
         }
 
+        System.out.println(request.getRequestURI());
         if(!sessionId.isEmpty()) {
             Session foundSession = sessionService.getById(sessionId);
             if (foundSession != null) {
-                if(foundSession.getExpiresAt().isBefore(LocalDateTime.now())) {
+                if(foundSession.getExpiresAt().isAfter(LocalDateTime.now())) {
+                    System.out.println("Сессия не протухла");
                     filterChain.doFilter(servletRequest, servletResponse);
                     return;
                 };
             }
-            httpResponse.sendRedirect("/unauthorized");
-            return;
+            httpResponse.sendRedirect("/authentication");
+        }
+        else {
+            httpResponse.sendRedirect("/authentication");
         }
 
-        httpResponse.sendRedirect("/unauthorized");
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 }
