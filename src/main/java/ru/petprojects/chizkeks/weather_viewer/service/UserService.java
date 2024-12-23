@@ -1,7 +1,6 @@
 package ru.petprojects.chizkeks.weather_viewer.service;
 
 import lombok.*;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.petprojects.chizkeks.weather_viewer.model.dto.UserDto;
 import ru.petprojects.chizkeks.weather_viewer.model.mapper.UserMapper;
