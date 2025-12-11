@@ -149,8 +149,23 @@ form {
     display: inline-block;
     width: 20px;
     height: 20px;
-    background: url(/icons/view.svg) 0 0 no-repeat;
+    background: url("/static/icons/view.svg") 0 0 no-repeat;
 }
 .password-control.view {
-    background: url(/icons/no-view.svg) 0 0 no-repeat;
+    background: url("/static/icons/no-view.svg") 0 0 no-repeat;
+}
+
+/*For correct representation of login/registration half of the page after sending POST reqeust*/
+.registration > #slideBox {
+    margin-left: 0px;
+}
+.registration > #slideBox > .topLayer{
+    margin-left: 100%;
+}
+
+.login > #slideBox {
+    margin-left: 50%;
+}
+.login > #slideBox > .topLayer{
+    margin-left: 0px;
 }

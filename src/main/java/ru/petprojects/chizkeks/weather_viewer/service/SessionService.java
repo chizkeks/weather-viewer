@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 import ru.petprojects.chizkeks.weather_viewer.model.Session;
+import ru.petprojects.chizkeks.weather_viewer.model.User;
 import ru.petprojects.chizkeks.weather_viewer.model.dto.UserDto;
 import ru.petprojects.chizkeks.weather_viewer.model.mapper.UserMapper;
 import ru.petprojects.chizkeks.weather_viewer.repository.SessionRepository;
@@ -22,10 +23,10 @@ public class SessionService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
 
-    public Session create(UserDto user) {
+    public Session create(User user) {
 
         Session newSession = Session.builder()
-                .user(userMapper.userDtoToUser(user))
+                .user(user)
                 .expiresAt(LocalDateTime.now().plusHours(5))
                 .build();
         return sessionRepository.save(newSession);

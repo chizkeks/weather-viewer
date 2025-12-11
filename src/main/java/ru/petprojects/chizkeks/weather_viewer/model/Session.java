@@ -22,7 +22,6 @@ public class Session implements BaseEntity<String> {
     String id;
 
     @ManyToOne
-    @Cascade(CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     User user;
 

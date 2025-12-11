@@ -13,7 +13,7 @@ import ru.petprojects.chizkeks.weather_viewer.service.SessionService;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-@WebFilter(urlPatterns = {"/home"})
+@WebFilter(urlPatterns = {"/"})
 @RequiredArgsConstructor
 public class AuthenticationFilter implements Filter {
 
@@ -21,9 +21,9 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-        Cookie[] cookies = request.getCookies();
+        Cookie[] cookies = httpRequest.getCookies();
         String sessionId = "";
         if(cookies != null) {
             for(Cookie cookie : cookies) {
@@ -33,12 +33,11 @@ public class AuthenticationFilter implements Filter {
             }
         }
 
-        System.out.println(request.getRequestURI());
+        System.out.println(httpRequest.getRequestURI());
         if(!sessionId.isEmpty()) {
             Session foundSession = sessionService.getById(sessionId);
             if (foundSession != null) {
                 if(foundSession.getExpiresAt().isAfter(LocalDateTime.now())) {
-                    System.out.println("Сессия не протухла");
                     filterChain.doFilter(servletRequest, servletResponse);
                     return;
                 };
@@ -49,6 +48,6 @@ public class AuthenticationFilter implements Filter {
             httpResponse.sendRedirect("/authentication");
         }
 
-        filterChain.doFilter(servletRequest, servletResponse);
+        //filterChain.doFilter(servletRequest, servletResponse);
     }
 }
