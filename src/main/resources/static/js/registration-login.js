@@ -38,7 +38,7 @@ $(document).ready(function(){
 
 
 $(document).on('click', '.password-control', function(){
-    if ($('#password-input').attr('type') == 'password'){
+    if ($('#password-input').attr('type') === 'password'){
         $(this).addClass('view');
         $('#password-input').attr('type', 'text');
     } else {

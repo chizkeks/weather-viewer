@@ -40,7 +40,7 @@ public class AuthenticationFilter implements Filter {
                 if(foundSession.getExpiresAt().isAfter(LocalDateTime.now())) {
                     filterChain.doFilter(servletRequest, servletResponse);
                     return;
-                };
+                }
             }
             httpResponse.sendRedirect("/authentication");
         }

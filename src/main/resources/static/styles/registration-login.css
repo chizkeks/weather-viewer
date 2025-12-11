@@ -157,7 +157,7 @@ form {
 
 /*For correct representation of login/registration half of the page after sending POST reqeust*/
 .registration > #slideBox {
-    margin-left: 0px;
+    margin-left: 0;
 }
 .registration > #slideBox > .topLayer{
     margin-left: 100%;
@@ -167,5 +167,5 @@ form {
     margin-left: 50%;
 }
 .login > #slideBox > .topLayer{
-    margin-left: 0px;
+    margin-left: 0;
 }

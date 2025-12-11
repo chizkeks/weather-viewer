@@ -84,7 +84,7 @@ public class AuthenticationController {
         } else {
             List<FieldError> errors = bindingResult.getFieldErrors();
             for(FieldError error : errors) {
-                System.out.println(error.getField() + "  " + error.getDefaultMessage());;
+                System.out.println(error.getField() + "  " + error.getDefaultMessage());
             }
         }
         model.addAttribute("user", user);

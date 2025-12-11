@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 import ru.petprojects.chizkeks.weather_viewer.model.Session;
 import ru.petprojects.chizkeks.weather_viewer.model.User;
-import ru.petprojects.chizkeks.weather_viewer.model.dto.UserDto;
 import ru.petprojects.chizkeks.weather_viewer.model.mapper.UserMapper;
 import ru.petprojects.chizkeks.weather_viewer.repository.SessionRepository;
 import ru.petprojects.chizkeks.weather_viewer.repository.UserRepository;
