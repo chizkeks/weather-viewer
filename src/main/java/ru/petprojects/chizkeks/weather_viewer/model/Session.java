@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import java.time.LocalDateTime;
 
@@ -22,7 +20,6 @@ public class Session implements BaseEntity<String> {
     String id;
 
     @ManyToOne
-    @Cascade(CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     User user;
 
