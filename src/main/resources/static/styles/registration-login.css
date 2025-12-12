@@ -169,3 +169,7 @@ form {
 .login > #slideBox > .topLayer{
     margin-left: 0;
 }
+
+.error {
+    color: red;
+}

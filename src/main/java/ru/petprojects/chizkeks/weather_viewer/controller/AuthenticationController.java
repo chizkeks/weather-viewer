@@ -31,7 +31,7 @@ public class AuthenticationController {
     private final SessionService sessionService;
 
     @PostMapping("/login")
-    public String login(@ModelAttribute UserDto user, BindingResult bindingResult, HttpServletResponse response, Model model) {
+    public String login(@ModelAttribute("user") @Valid UserDto user, BindingResult bindingResult, HttpServletResponse response, Model model) {
         model.addAttribute("activePanel", "login");
 
         User userFromDB = userService.findUserByLogin(user.getLogin());
@@ -39,22 +39,23 @@ public class AuthenticationController {
         if(userFromDB != null && userFromDB.getPassword().equals(HashUtils.encodePBKDF2(user.getPassword(), user.getLogin().getBytes()))) {
             Session userSession = sessionService.create(userFromDB);
             response.addCookie(new Cookie("sessionId", userSession.getId()));
-            return "redirect:/home";
+            return "home";
         }
         bindingResult.rejectValue("login", "authError", "Неверный логин или пароль");
-        return "redirect:/authentication";
+        return "authentication";
     }
 
     @GetMapping("/authentication")
-    public String autheticateUser(@ModelAttribute("user") UserDto userDto,
-                                  Model model) {
-        model.addAttribute("user", userDto);
+    public String autheticateUser(Model model) {
+        if(!model.containsAttribute("user")) {
+            model.addAttribute("user", new UserDto());
+        }
         model.addAttribute("activePanel", "login");
         return "authentication";
     }
 
     @GetMapping("/registration")
-    public String registration_get(@Valid @ModelAttribute UserDto user,
+    public String registration_get(@Valid @ModelAttribute("user") UserDto user,
                                    Model model) {
         model.addAttribute("user", user);
         model.addAttribute("activePanel", "registration");
@@ -62,7 +63,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/registration")
-    public String registration(@Valid @ModelAttribute UserDto user,
+    public String registration(@Valid @ModelAttribute("user") UserDto user,
                                BindingResult bindingResult,
                                RedirectAttributes redirectAttributes,
                                HttpServletResponse response,
@@ -80,7 +81,7 @@ public class AuthenticationController {
             response.addCookie(new Cookie("sessionId", userSession.getId()));
             //redirectAttributes.addFlashAttribute("user", user);
             model.addAttribute("activePanel", "login");
-            return "redirect:/authentication";
+            return "authentication";
         } else {
             List<FieldError> errors = bindingResult.getFieldErrors();
             for(FieldError error : errors) {
