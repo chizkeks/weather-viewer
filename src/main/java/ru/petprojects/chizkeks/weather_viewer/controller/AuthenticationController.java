@@ -42,14 +42,18 @@ public class AuthenticationController {
             return "home";
         }
         bindingResult.rejectValue("login", "authError", "Неверный логин или пароль");
+
+        //Clear "new_user" in case it already exists
+        model.addAttribute("new_user", new UserDto());
         return "authentication";
     }
 
     @GetMapping("/authentication")
     public String autheticateUser(Model model) {
-        if(!model.containsAttribute("user")) {
-            model.addAttribute("user", new UserDto());
-        }
+        //Every time create new "user" and "new_user" (to clear all errors and data store in it)
+        model.addAttribute("user", new UserDto());
+        model.addAttribute("new_user", new UserDto());
+
         model.addAttribute("activePanel", "login");
         return "authentication";
     }
@@ -57,18 +61,23 @@ public class AuthenticationController {
     @GetMapping("/registration")
     public String registration_get(@Valid @ModelAttribute("user") UserDto user,
                                    Model model) {
-        model.addAttribute("user", user);
+        //Every time create new "new_user" (to clear all errors and data store in it)
+        model.addAttribute("new_user", new UserDto());
+
         model.addAttribute("activePanel", "registration");
         return "authentication";
     }
 
     @PostMapping("/registration")
-    public String registration(@Valid @ModelAttribute("user") UserDto user,
+    public String registration(@Valid @ModelAttribute("new_user") UserDto user,
                                BindingResult bindingResult,
                                RedirectAttributes redirectAttributes,
                                HttpServletResponse response,
                                Model model) {
         model.addAttribute("activePanel", "registration");
+
+        //Every time create new "user" (to clear all errors and data store in it)
+        model.addAttribute("user", new UserDto());
 
         //Return to the authentication page if there are errors
         if(!bindingResult.hasErrors()) {
@@ -88,7 +97,9 @@ public class AuthenticationController {
                 System.out.println(error.getField() + "  " + error.getDefaultMessage());
             }
         }
-        model.addAttribute("user", user);
+
+        model.addAttribute("new_user", user);
+
         return "authentication";
     }
 

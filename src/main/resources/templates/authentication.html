@@ -16,14 +16,14 @@
                 <div id = "registration" class="left">
                     <div class="content">
                         <h2>Sign Up</h2>
-                        <form method="post" action="/registration" th:object="${user}">
+                        <form method="post" action="/registration" th:object="${new_user}">
                             <div class="form-group">
-                                <label th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></label>
+                                <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}" th:errorclass="error"></div>
                                 <input type="text" th:field="*{login}" placeholder="login" required/>
                             </div>
                             <div class="form-group"></div>
                                 <div class="password">
-                                    <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></label>
+                                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"></div>
                                     <input type="password" th:field="*{password}" id="password-input" placeholder="password" required>
                                     <a class="password-control"></a>
                                 </div>
@@ -39,11 +39,11 @@
                         <h2>Login</h2>
                         <form method="post" action="/login" th:object="${user}">
                             <div class="form-group">
-                                <label th:if="${#fields.hasErrors('login')}" th:errors="*{login}" th:errorclass="error"></label>
+                                <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}" th:errorclass="error"></div>
                                 <input id="registration-login" th:field="*{login}" type="text" placeholder="login" required/>
                             </div>
                             <div class="form-group">
-                                <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"></label>
+                                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"></div>
                                 <input id="registration-password" th:field="*{password}" type="password" placeholder = "password" required/>
                             </div>
                             <button id="goRight" class="off" type="button">Sign Up</button>
