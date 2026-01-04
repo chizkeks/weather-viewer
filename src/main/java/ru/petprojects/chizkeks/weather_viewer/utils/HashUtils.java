@@ -13,8 +13,9 @@ import java.security.spec.KeySpec;
 @UtilityClass
 public class HashUtils {
 
-    public String encodePBKDF2(String msg) {
-        byte[] salt = generateSalt();
+    public String encodePBKDF2(String msg, byte[] salt) {
+        if(salt == null) salt = generateSalt();
+
         KeySpec spec = new PBEKeySpec(msg.toCharArray(), salt, 65536, 128);
         try {
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
@@ -33,7 +34,5 @@ public class HashUtils {
         random.nextBytes(salt);
         return salt;
     }
-
-
 
 }
